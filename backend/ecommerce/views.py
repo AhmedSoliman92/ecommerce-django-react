@@ -1,18 +1,20 @@
-from django.http import response
+
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .product import products
+from .models import Product
+from .serializers import ProductSerializer
 
 @api_view()
 def getProducts(request):
-    return Response(products)
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many = True)
+    return Response(serializer.data)
 
 
 @api_view()
 def getProduct(request,pk):
-    product = None
-    for item in products:
-        if item['_id']==pk:
-            product=item
-            return Response(product)
+    product = Product.objects.get(_id = pk)
+    serializer = ProductSerializer(product, many = False)
+    return Response(serializer.data)
+

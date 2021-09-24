@@ -1,6 +1,6 @@
 
 from pathlib import Path
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -94,10 +94,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR/'static'
+    BASE_DIR / 'static'
 ]
 MEDIA_URL = '/images/'
-MEDIA_ROOT = 'static/images'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
