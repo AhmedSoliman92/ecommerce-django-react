@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import axios from 'axios';
-import Rating from '../Rating'
+import Rating from '../components/Rating'
 const ProductDetail = ({match}) => {
     const [product,setProduct]= useState([]);
     useEffect( ()=>{
