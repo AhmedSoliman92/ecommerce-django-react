@@ -1,19 +1,19 @@
-import React,{useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Col, Row, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Col, Row, Image, ListGroup, Card, Button,Form } from 'react-bootstrap'
 import Rating from '../components/Rating';
 import { productDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 const ProductDetail = ({ match }) => {
+    const [qty, setQty] = useState(1)
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetail
     useEffect( ()=>{
         dispatch(productDetails(match.params.id))
     },[dispatch,match])
-
     return (
         <div>
             <Link to="/" className="btn btn-light my-3">Go back</Link>
@@ -66,6 +66,28 @@ const ProductDetail = ({ match }) => {
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>
+                                    {product.countInStock > 0 && (
+                                        <ListGroup.Item>
+                                            <Row>
+                                                <Col>Qty</Col>
+                                                <Col xs='auto' className='my-1'>
+                                                    <Form.Control
+                                                    as="select"
+                                                    value={qty}
+                                                    onChange={(e)=> setQty(e.target.value)}
+                                                    >
+                                                        {
+                                                            [...Array(product.countInStock).keys()].map((x) => (
+                                                            <option key={x+1} value={x+1}>
+                                                                {x + 1}
+                                                            </option>
+                                                        ))
+                                                        }
+                                                    </Form.Control>
+                                                </Col>
+                                            </Row>
+                                        </ListGroup.Item>
+                                    ) }
                                     
                                     <ListGroup.Item>
                                         <Row>
