@@ -6,7 +6,7 @@ import Rating from '../components/Rating';
 import { productDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-const ProductDetail = ({ match }) => {
+const ProductDetail = ({ match,history }) => {
     const [qty, setQty] = useState(1)
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productDetails)
@@ -14,6 +14,9 @@ const ProductDetail = ({ match }) => {
     useEffect( ()=>{
         dispatch(productDetails(match.params.id))
     },[dispatch,match])
+    const addToCardHandler = ()=>{
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
+    }
     return (
         <div>
             <Link to="/" className="btn btn-light my-3">Go back</Link>
@@ -91,7 +94,7 @@ const ProductDetail = ({ match }) => {
                                     
                                     <ListGroup.Item>
                                         <Row>
-                                        <Button className="btn-block" disabled={product.countInStock ===0} type="button">Add to Card</Button>
+                                        <Button onClick={addToCardHandler} className="btn-block" disabled={product.countInStock ===0} type="button">Add to Card</Button>
                                         </Row>
                                     </ListGroup.Item>
                                 </ListGroup>
