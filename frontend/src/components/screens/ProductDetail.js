@@ -9,6 +9,7 @@ const ProductDetail = ({match}) => {
         const fetchProduct = async()=>{
             const {data} = await axios.get(`http://127.0.0.1:8000/api/products/${match.params.id}`)
             setProduct(data)
+            console.log(data)
         }
         fetchProduct()
   
@@ -18,7 +19,7 @@ const ProductDetail = ({match}) => {
             <Link to="/" className="btn btn-light my-3">Go back</Link>
             <Row>
                 <Col md={6}>
-                    <Image src={product.image} alt={product.name} fluid/>
+                    <Image src={'http://127.0.0.1:8000'+product.image} alt={product.name} fluid/>
                 </Col>
                 <Col md={3}>
                     <ListGroup variant="flush">
