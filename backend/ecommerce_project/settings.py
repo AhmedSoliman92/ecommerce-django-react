@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'ecommerce',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -103,3 +104,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django-cors-headers
 CORS_ALLOW_ALL_ORIGINS = True
+
+# simple_jwt
+REST_FRAMEWORK = {
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+    
+}
+
+# simple_jwt setting
+from datetime import timedelta
+
+...
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
