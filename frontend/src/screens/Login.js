@@ -31,6 +31,7 @@ const Login = ({location, history}) => {
         <FormContainer>
             <h1>Log In</h1>
             {error && <Message variant='danger'>{error}</Message>}
+            {loading && <Loader/>}
             <Form onSubmit = {submitHandler}>
                 <Form.Group controlId='email'>
                     <Form.Label>Email</Form.Label>
