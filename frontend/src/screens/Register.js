@@ -10,8 +10,8 @@ const Register = ({location,history}) => {
     const [firstName,setFirstName] =useState('')
     const [lastName,setLastName] =useState('')
     const [email,setEmail] =useState('')
-    const [passoword,setPassword] =useState('')
-    const [confirmPassoword,setConfirmPassword] =useState('')
+    const [password,setPassword] =useState('')
+    const [confirmPassword,setConfirmPassword] =useState('')
     const [message,setMessage] =useState('')
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -26,10 +26,10 @@ const Register = ({location,history}) => {
     },[history,redirect,userInfo])
     const handleSubmit = (e)=> {
         e.preventDefault()
-        if (passoword !== confirmPassoword){
+        if (password !== confirmPassword){
             setMessage('Passwords don\'t match')
         }else{
-            dispatch(register(firstName,lastName,email,passoword,confirmPassoword))
+            dispatch(register(firstName,lastName,email,password,confirmPassword))
         }
         
     }
@@ -79,7 +79,7 @@ const Register = ({location,history}) => {
                         autoComplete = "off"
                         placeholder =  "your password"
                         type = "password"
-                        value ={passoword}
+                        value ={password}
                         onChange = {(e) => {setPassword(e.target.value)}}
                     />
                 </FormGroup>
@@ -90,7 +90,7 @@ const Register = ({location,history}) => {
                         autoComplete = "off"
                         placeholder =  "confirm your password"
                         type = "password"
-                        value ={confirmPassoword}
+                        value ={confirmPassword}
                         onChange = {(e) => {setConfirmPassword(e.target.value)}}
                     />
                 </FormGroup>

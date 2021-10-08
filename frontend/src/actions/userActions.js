@@ -8,6 +8,10 @@ import {
     USER_REGISTER_FAIL,
 
     USER_LOGOUT,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL,
+    USER_DETAILS_RESET,
 }
 from '../constants/userConstants'
 import axios from 'axios'
@@ -82,8 +86,41 @@ export const register = (firstName,lastName, email,password,confirmPassword)=> a
     }
 
 }
-export const Logout = () => (dispatch) => {
+
+export const userDetails = (id) => async (dispatch, getState) => {
+    try{
+        dispatch({
+            type : USER_DETAILS_REQUEST
+        })
+        const {
+            userLogin : {userInfo},
+        }  = getState()
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${userInfo.token}`
+            }
+
+        }
+        const {data} = await axios.get(`http://127.0.0.1:8000/api/users/${id}`,config)
+        dispatch({
+            type : USER_DETAILS_SUCCESS,
+            payload : data
+        })
+
+
+    } catch(error){
+        dispatch({
+            type : USER_DETAILS_FAIL,
+            payload: error.response && error.response.data.message
+            ? error.response.data.details
+            : error.message
+        })
+    }
+}
+export const logout = () => (dispatch) => {
         localStorage.removeItem('userInfo')
+        dispatch({type:USER_DETAILS_RESET})
         dispatch({
             type: USER_LOGOUT
         })
