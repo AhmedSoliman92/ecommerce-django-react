@@ -54,12 +54,12 @@ const Login = ({location, history}) => {
                 </Form.Group>
 
 
-                <Button className="mt-4" type='submit' variant='primary'>Log in </Button>
+                <Button className="my-4" type='submit' variant='primary'>Log in </Button>
             </Form>
 
             <Row className="py-3">
                 <Col>
-                    you haven't regestered yet? <Link
+                    you haven't registered yet? <Link
                     to={redirect ? `/register?redirect=${redirect}`: '/register'}
                     >Register</Link>
                 </Col>
