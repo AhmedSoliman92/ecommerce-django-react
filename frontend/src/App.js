@@ -9,6 +9,7 @@ import ProductDetail from './screens/ProductDetail'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import Profile from './screens/Profile'
+import Shipping from './screens/Shipping'
 const App = () => {
   return (
     <Router>
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/profile" component={Profile} />
+          <Route path="/shipping" component={Shipping} />
           <Route path="/product/:id" component={ProductDetail}/>
           <Route path="/cart/:id?" component={Cart}/>
         </Container>
