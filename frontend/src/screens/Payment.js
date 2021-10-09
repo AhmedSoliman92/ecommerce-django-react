@@ -3,6 +3,7 @@ import FormContainer from '../components/FormContainer'
 import {Form, FormGroup,Col, Button, } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import {savePaymentInfo} from '../actions/cartActions'
+import CheckoutSteps from '../components/CheckoutSteps'
 const Payment = ({history}) => {
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
 
@@ -20,6 +21,7 @@ const Payment = ({history}) => {
     }
     return (
         <FormContainer>
+            <CheckoutSteps step1 step2 step3/>
             <h1>Payment</h1>
             <Form onSubmit={handleSubmit}>
                 <FormGroup controlId = "paymentMethod">
