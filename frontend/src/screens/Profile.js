@@ -3,14 +3,15 @@ import { Button, Col, Form, FormGroup, Row } from 'react-bootstrap'
 import { useSelector,useDispatch } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import {userDetails} from '../actions/userActions'
+import {userDetails,updateUserProfile} from '../actions/userActions'
 const Profile = ({history}) => {
     const [firstName,setFirstName] =useState('')
     const [lastName,setLastName] =useState('')
     const [email,setEmail] =useState('')
     const [password,setPassword] =useState('')
     const [confirmPassword,setConfirmPassword] =useState('')
-    //const [message,setMessage] =useState('')
+    const [message,setMessage] =useState('')
+    const [alert,setAlert] =useState('')
 
     const dispatch = useDispatch()
     const userDetail = useSelector(state => state.userDetails)
@@ -38,12 +39,35 @@ const Profile = ({history}) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log('profile')
+        if(password !== confirmPassword){
+            setAlert('danger')
+            setMessage('Passwords don\'t match')
+        }else {
+            const updatedUser = {
+                'firstName': firstName,
+                'lastName' : lastName,
+                'email' : email,
+                'password' : password
+            }
+            try{
+                dispatch(updateUserProfile({
+                    'firstName': firstName,
+                    'lastName' : lastName,
+                    'email' : email,
+                    'password' : password
+                }))
+            }catch(error){
+                console.log(error)
+            }
+            setAlert('info')
+            setMessage('Your account information has been updated successfully!!')
+        }
     }
     return (
         <Row>
             <Col md={3}>
                 <h1>My Information</h1>
+                {message && <Message variant={alert}>{message}</Message>}
                 {error && <Message variant="danger">{error}</Message>}
                 {loading && <Loader/>}
                 <Form onSubmit={submitHandler}>
@@ -77,7 +101,6 @@ const Profile = ({history}) => {
                     <FormGroup controlId="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
-                            required
                             type="text"
                             value={password}
                             onChange={(e) => {setPassword(e.target.value)}}
@@ -86,7 +109,6 @@ const Profile = ({history}) => {
                     <FormGroup  controlId="ConfirmPassword">
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
-                            required
                             type="text"
                             value={confirmPassword}
                             onChange={(e) => {setConfirmPassword(e.target.value)}}

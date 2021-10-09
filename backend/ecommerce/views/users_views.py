@@ -51,6 +51,8 @@ def update_user_profile(request):
     user.username = data['email']
     if data['password'] !='':
         user.password = make_password(data['password'])
+    
+    user.save()
     return Response(serializer.data)
 @api_view()
 @permission_classes([IsAuthenticated])
