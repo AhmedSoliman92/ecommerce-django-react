@@ -17,7 +17,7 @@ const Payment = ({history}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(savePaymentInfo({paymentMethod}))
-        history.push('/placeholder')
+        history.push('/place-order')
     }
     return (
         <FormContainer>

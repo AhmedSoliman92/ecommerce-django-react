@@ -76,7 +76,7 @@ const Shipping = ({history}) => {
                     type = 'submit'
                     variant='primary'
                 >
-                    Save
+                    Next
                 </Button> 
             </Form>
         </FormContainer>
